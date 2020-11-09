@@ -1,12 +1,15 @@
 <script>
-  export let data
+  export let value
 </script>
 
-<td class="px-2 py-5 border-b border-gray-200 bg-white text-sm">
-  <p class="text">{ data }</p>
+<td class="table-data">
+  <p class="text">{ value }</p>
 </td>
 
 <style type="text/postcss">
+  .table-data {
+    @apply px-2 py-5 border-b border-gray-200 bg-white text-sm
+  }
   .text {
     @apply text-gray-900 whitespace-no-wrap;
   }

@@ -1,27 +1,40 @@
 <script>
+  import TabImageCell from './TabTextCell.svelte'
+  import TabPillCell from './TabTextCell.svelte'
+  import TabTextCell from './TabTextCell.svelte'
+
   export let definition // Array of data objects defining the report
   export let data // Array of data objects containing the data
 
-  const components = definition.columns.map((columnData) => {
-    let componentInvokation
-    switch (columnData.type) {
-      case 'image':
-        break
-      case 'pill':
-        break
-      case 'text':
-        componentInvokation = `<TabTextCell dataName={ ${ columnData.dataName } } />`
-        break
-      default: 
-        throw `Unknown cell type encountered (type: ${data.type})`
-    }
+  const componentRows = data.map((row) => {
+    const rowValues = Object.values(row)
+    return rowValues.map((cellValue,columnNo) => {
+      let componentInvocation
+
+      switch (definition.columns[columnNo].type) {
+        case 'image':
+          componentInvocation = { component: TabImageCell, value: `${ cellValue }` }
+          break
+        case 'pill':
+          componentInvocation = { component: TabPillCell, value: `${ cellValue }` }
+          break
+        case 'text':
+
+          componentInvocation = { component: TabTextCell, value: `${ cellValue }` }
+          break
+        default: 
+          throw `Unknown cell type encountered (type: ${ definition.columns[columnNo].type })`
+      }
+      return componentInvocation
+    })
+
   })
 
 </script>
 
 <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
   <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
-    <table class="min-w-full leading-normal">
+    <table class="table">
       <thead>
         <tr>
           {#each definition.columns as column}
@@ -32,11 +45,11 @@
         </tr>
       </thead>
       <tbody>
-        {#each data as item, index}
+        {#each componentRows as row}
           <tr>
-            {#each components as component}
-              {@html component}
-            {/each}
+          {#each row as cell}
+            <svelte:component this={ cell.component } value={ cell.value } />
+          {/each}
           </tr>
         {/each}
       </tbody>
@@ -45,6 +58,9 @@
 </div>
 
 <style type="text/postcss">
+  .table {
+    @apply min-w-full leading-normal;
+  }
   .column-heading {
     @apply px-2 py-3 border-b-2 border-gray-200 bg-gray-100
       text-left text-xs font-semibold text-gray-600 uppercase
