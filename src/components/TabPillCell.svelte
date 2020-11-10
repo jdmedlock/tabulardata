@@ -8,20 +8,14 @@
 
 </script>
 
-<td class="table-data">
-  <span class="image-wrapper">
-    <span aria-hidden class="pill-wrapper { pillColor }" />
-    <span class="pill">{ value }</span>
-  </span>
-</td>
+<span class="image-wrapper">
+  <span aria-hidden class="pill-wrapper { pillColor }" />
+  <span class="pill">{ value }</span>
+</span>
 
 <style type="text/postcss">
-  .table-data {
-    @apply py-5 bg-white text-sm;
-  }
-
   .image-wrapper {
-    @apply relative inline-block py-1 font-medium text-gray-500 leading-tight;
+    @apply relative inline-block py-1 font-medium text-gray-800 leading-tight;
   }
 
   .pill-wrapper {

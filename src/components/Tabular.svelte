@@ -48,7 +48,9 @@
         {#each componentRows as row}
           <tr>
           {#each row as cell}
-            <svelte:component this={ cell.component } value={ cell.value } decorators={ cell.decorators } />
+            <td class="table-data">
+              <svelte:component this={ cell.component } value={ cell.value } decorators={ cell.decorators } />
+            </td>
           {/each}
           </tr>
         {/each}
@@ -61,9 +63,14 @@
   .table {
     @apply min-w-full leading-normal;
   }
+
   .column-heading {
     @apply px-2 py-3 border-b-2 border-gray-200 bg-gray-100
       text-left text-xs font-semibold text-gray-600 uppercase
       tracking-wider;
+  }
+
+  .table-data {
+    @apply px-2 py-5 border-b border-gray-200 bg-white text-sm
   }
 </style>
