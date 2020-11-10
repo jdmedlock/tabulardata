@@ -1,19 +1,22 @@
 <script>
 	import Tabular from '../components/Tabular.svelte'
-	import TabStart from '../components/TabStart.svelte'
-	import TabImageCell from '../components/TabImageCell.svelte'
-	import TabPillCell from '../components/TabPillCell.svelte'
-	import TabTextCell from '../components/TabTextCell.svelte'
-	import TabRender from '../components/TabRender.svelte'
 
 	const personData = [
-		{ avatarImg: 'https://url.com/joesicon', email: 'Joe@gmail.com', 
-			firstName: 'Joseph', lastName: 'Murtaugh', status: 'Active' },
-		{ avatarImg: 'https://url.com/janesicon', email: 'Jane@company.com', 
-			firstName: 'Jane', lastName: 'Knope', status: 'Inactive' }
+		{ avatarImg: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 
+			email: 'Joe@gmail.com', firstName: 'Joseph', lastName: 'Murtaugh', status: 'Active' },
+		{ avatarImg: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2.2&w=160&h=160&q=80', 
+			email: 'Jane@company.com', firstName: 'Jane', lastName: 'Knope', status: 'Inactive' },
 	]
 
+	const getPersonData = ((rowsPerPage, noRowsDisplaed) => {
+		// TODO: define this function
+	})
+
 	const personRpt = {
+		dataSource: {
+			reader: getPersonData,
+			rowsPerPage: 5
+		},
 		columns: [
 			{ type: 'image', heading: 'Avatar', dataName: 'avatarImg' },
 			{ type: 'text', heading: 'email', dataName: 'email' },
@@ -21,8 +24,8 @@
 			{ type: 'text', heading: 'First Name', dataName: 'firstName' },
 			{ type: 'pill', heading: 'Status', dataName: 'status',
 					decorators: [ 
-						{ value: 'Awesome', pillColor: 'bg-blue-200' },
-						{ value: 'Unknown', pillColor: 'bg-blue-400' },
+						{ value: 'Active', pillColor: 'bg-blue-200' },
+						{ value: 'Inactive', pillColor: 'bg-blue-400' },
 					]
 			}
 		]

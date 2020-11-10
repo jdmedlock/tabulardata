@@ -1,6 +1,6 @@
 <script>
-  import TabImageCell from './TabTextCell.svelte'
-  import TabPillCell from './TabTextCell.svelte'
+  import TabImageCell from './TabImageCell.svelte'
+  import TabPillCell from './TabPillCell.svelte'
   import TabTextCell from './TabTextCell.svelte'
 
   export let definition // Array of data objects defining the report
@@ -16,10 +16,10 @@
           componentInvocation = { component: TabImageCell, value: `${ cellValue }` }
           break
         case 'pill':
-          componentInvocation = { component: TabPillCell, value: `${ cellValue }` }
+          componentInvocation = { component: TabPillCell, value: `${ cellValue }`, 
+            decorators: definition.columns[columnNo].decorators }
           break
         case 'text':
-
           componentInvocation = { component: TabTextCell, value: `${ cellValue }` }
           break
         default: 
@@ -48,7 +48,7 @@
         {#each componentRows as row}
           <tr>
           {#each row as cell}
-            <svelte:component this={ cell.component } value={ cell.value } />
+            <svelte:component this={ cell.component } value={ cell.value } decorators={ cell.decorators } />
           {/each}
           </tr>
         {/each}
