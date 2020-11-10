@@ -4,7 +4,8 @@
   import TabTextCell from './TabTextCell.svelte'
 
   export let definition // Array of data objects defining the report
-  export let data // Array of data objects containing the data
+  
+  const data = definition.dataSource.reader(0, -1)
 
   const componentRows = data.map((row) => {
     const rowValues = Object.values(row)
