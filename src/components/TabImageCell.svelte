@@ -1,7 +1,5 @@
 <script>
   export let value
-  export let decorators = null
-
 </script>
 
 <div class="image-outer-wrapper">

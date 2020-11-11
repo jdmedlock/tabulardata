@@ -50,7 +50,11 @@
           <tr>
           {#each row as cell}
             <td class="table-data">
-              <svelte:component this={ cell.component } value={ cell.value } decorators={ cell.decorators } />
+              {#if cell.component === TabPillCell}
+                <svelte:component this={ cell.component } value={ cell.value } decorators={ cell.decorators } />
+              {:else}
+                <svelte:component this={ cell.component } value={ cell.value } />
+              {/if}
             </td>
           {/each}
           </tr>
