@@ -3,9 +3,9 @@
   import TabPillCell from './TabPillCell.svelte'
   import TabTextCell from './TabTextCell.svelte'
 
-  export let definition // Array of data objects defining the report
+  export let definition 
   
-  const data = definition.dataSource.reader(0, -1)
+  const data = definition.dataSource.reader(0, definition.dataSource.rowsPerPage)
 
   const componentRows = data.map((row) => {
     const rowValues = Object.values(row)

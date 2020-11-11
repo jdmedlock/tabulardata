@@ -10,7 +10,7 @@
 	const personRpt = {
 		dataSource: {
 			reader: getPersonData,
-			rowsPerPage: 5
+			rowsPerPage: -1, // Display all rows
 		},
 		columns: [
 			{ type: 'image', heading: 'Avatar', dataName: 'avatarImg' },
