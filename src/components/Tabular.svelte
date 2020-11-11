@@ -3,9 +3,9 @@
   import TabPillCell from './TabPillCell.svelte'
   import TabTextCell from './TabTextCell.svelte'
 
-  export let definition // Array of data objects defining the report
+  export let definition 
   
-  const data = definition.dataSource.reader(0, -1)
+  const data = definition.dataSource.reader(0, definition.dataSource.rowsPerPage)
 
   const componentRows = data.map((row) => {
     const rowValues = Object.values(row)
@@ -50,7 +50,11 @@
           <tr>
           {#each row as cell}
             <td class="table-data">
-              <svelte:component this={ cell.component } value={ cell.value } decorators={ cell.decorators } />
+              {#if cell.component === TabPillCell}
+                <svelte:component this={ cell.component } value={ cell.value } decorators={ cell.decorators } />
+              {:else}
+                <svelte:component this={ cell.component } value={ cell.value } />
+              {/if}
             </td>
           {/each}
           </tr>

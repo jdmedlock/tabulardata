@@ -1,6 +1,5 @@
 <script>
   export let value
-  export let decorators = null
 </script>
 
 <p class="text">{ value }</p>
