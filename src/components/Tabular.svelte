@@ -8,23 +8,25 @@
   const data = definition.dataSource.reader(0, definition.dataSource.rowsPerPage)
 
   const componentRows = data.map((row) => {
-    const rowValues = Object.values(row)
-    return rowValues.map((cellValue,columnNo) => {
+    const rowKeys = Object.keys(row)
+    return rowKeys.map((cellKey) => {
+      const cellValue = row[cellKey]
       let componentInvocation
 
-      switch (definition.columns[columnNo].type) {
+      const index = definition.columns.findIndex(column => column.dataName === cellKey);
+      switch (definition.columns[index].type) {
         case 'image':
           componentInvocation = { component: TabImageCell, value: `${ cellValue }` }
           break
         case 'pill':
           componentInvocation = { component: TabPillCell, value: `${ cellValue }`, 
-            decorators: definition.columns[columnNo].decorators }
+            decorators: definition.columns[index].decorators }
           break
         case 'text':
           componentInvocation = { component: TabTextCell, value: `${ cellValue }` }
           break
         default: 
-          throw `Unknown cell type encountered (type: ${ definition.columns[columnNo].type })`
+          throw `Unknown cell type encountered (type: ${ definition.columns[index].type })`
       }
       return componentInvocation
     })
