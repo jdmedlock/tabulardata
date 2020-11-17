@@ -89,6 +89,6 @@
   }
 
   .table-data {
-    @apply px-2 py-5 border-b border-gray-200 bg-white text-sm
+    @apply px-2 py-5 border-b border-gray-200 bg-white text-sm;
   }
 </style>

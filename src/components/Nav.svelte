@@ -2,6 +2,12 @@
 	export let segment;
 </script>
 
+<nav>
+	<ul>
+		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
+	</ul>
+</nav>
+
 <style>
 	nav {
 		border-bottom: 1px solid rgba(255,62,0,0.1);
@@ -47,9 +53,3 @@
 		display: block;
 	}
 </style>
-
-<nav>
-	<ul>
-		<li><a aria-current="{segment === undefined ? 'page' : undefined}" href=".">home</a></li>
-	</ul>
-</nav>

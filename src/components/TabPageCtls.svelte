@@ -43,7 +43,7 @@
   /* Extra small Screen */
   @screen sm {
     .pagination-controls {
-      @apply flex-row justify-between
+      @apply flex-row justify-between;
     }
 
     .pagination-status-text {
