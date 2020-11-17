@@ -2,10 +2,15 @@
   import TabImageCell from './TabImageCell.svelte'
   import TabPillCell from './TabPillCell.svelte'
   import TabTextCell from './TabTextCell.svelte'
+  import TabPageCtls from './TabPageCtls.svelte'
 
   export let definition 
   
   const data = definition.dataSource.reader(0, definition.dataSource.rowsPerPage)
+  const rowsPerPage = definition.dataSource.rowsPerPage === -1 
+    ? data.length : definition.dataSource.rowsPerPage
+  const totalNoRows = data.length
+  let firstRowDisplayed = 0
 
   const componentRows = data.map((row) => {
     const rowKeys = Object.keys(row)
@@ -35,6 +40,9 @@
 
 </script>
 
+<!-- Based on https://tailwindcomponents.com/component/table-responsive-with-filters -->
+
+<!-- Tabular Data Rows -->
 <div class="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
   <div class="inline-block min-w-full shadow rounded-lg overflow-hidden">
     <table class="table">
@@ -63,6 +71,10 @@
         {/each}
       </tbody>
     </table>
+
+    <!-- Pagination Controls -->
+    <TabPageCtls firstRowDisplayed={ firstRowDisplayed } rowsPerPage={ rowsPerPage } totalNoRows={ totalNoRows }/>
+
   </div>
 </div>
 
