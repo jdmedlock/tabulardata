@@ -10,7 +10,6 @@
   const rowsPerPage = definition.dataSource.rowsPerPage === -1 
     ? data.length : definition.dataSource.rowsPerPage
   const totalNoRows = data.length
-  let firstRowDisplayed = 0
 
   const componentRows = data.map((row) => {
     const rowKeys = Object.keys(row)
@@ -73,7 +72,7 @@
     </table>
 
     <!-- Pagination Controls -->
-    <TabPageCtls firstRowDisplayed={ firstRowDisplayed } rowsPerPage={ rowsPerPage } totalNoRows={ totalNoRows }/>
+    <TabPageCtls rowsPerPage={ rowsPerPage } totalNoRows={ totalNoRows }/>
 
   </div>
 </div>
