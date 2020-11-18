@@ -1,6 +1,4 @@
 <script>
-  import { scrollAmount } from '../stores/pagination.js';
-
   export let rowsPerPage
   export let totalNoRows
   export let scrollBackward
@@ -16,8 +14,8 @@
     Showing {firstRow} to {lastRowDisplayed} of {totalNoRows} rows
   </span>
   <div class="button-wrapper">
-    <button on:click={ scrollForward } class="prev-button">Prev</button>
-    <button on:click={ scrollBackward } class="next-button">Next</button>
+    <button on:click={ scrollBackward } class="prev-button">Prev</button>
+    <button on:click={ scrollForward } class="next-button">Next</button>
   </div>
 </div>
 

@@ -7,8 +7,8 @@ function createFirsRowToDisplay() {
 		subscribe,
 		forward: (rowsPerPage) => update(n => n + rowsPerPage),
 		backward: (rowsPerPage) => update(n => n - rowsPerPage),
-		reset: (firstRowToDisplay) => set(firstRowToDisplay)
+		reset: (rowNo) => set(rowNo)
 	};
 }
 
-export const scrollAmount = createFirsRowToDisplay();
+export const firstRowToDisplay = createFirsRowToDisplay();
