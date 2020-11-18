@@ -1,41 +1,61 @@
 <script>
+  import { scrollAmount } from '../stores/pagination'
   import TabImageCell from './TabImageCell.svelte'
   import TabPillCell from './TabPillCell.svelte'
   import TabTextCell from './TabTextCell.svelte'
   import TabPageCtls from './TabPageCtls.svelte'
 
-  export let definition 
-  
-  const data = definition.dataSource.reader(0, definition.dataSource.rowsPerPage)
+  export let definition
+
+  const retrieveDataPage = (rowsToScroll, rowsPerPage) => {
+    return definition.dataSource.reader(rowsToScroll, rowsPerPage)
+  }
+
+  const formatRows = () => {
+    return data.map((row) => {
+      const rowKeys = Object.keys(row)
+      return rowKeys.map((cellKey) => {
+        const cellValue = row[cellKey]
+        let componentInvocation
+
+        const index = definition.columns.findIndex(column => column.dataName === cellKey);
+        switch (definition.columns[index].type) {
+          case 'image':
+            componentInvocation = { component: TabImageCell, value: `${ cellValue }` }
+            break
+          case 'pill':
+            componentInvocation = { component: TabPillCell, value: `${ cellValue }`, 
+              decorators: definition.columns[index].decorators }
+            break
+          case 'text':
+            componentInvocation = { component: TabTextCell, value: `${ cellValue }` }
+            break
+          default: 
+            throw `Unknown cell type encountered (type: ${ definition.columns[index].type })`
+        }
+        return componentInvocation
+      })
+    })
+  }
+
+  let data = retrieveDataPage(0,definition.dataSource.rowsPerPage)
+  let componentRows = formatRows()
+
+  const scrollBackward = () => {
+    scrollAmount.forward(rowsPerPage)
+    data = retrieveDataPage($scrollAmount, definition.dataSource.rowsPerPage)
+    componentRows = formatRows()
+  }
+
+  const scrollForward = () => {
+    scrollAmount.backward(rowsPerPage)
+    data = retrieveDataPage($scrollAmount, definition.dataSource.rowsPerPage)
+    componentRows = formatRows()
+  }
+
   const rowsPerPage = definition.dataSource.rowsPerPage === -1 
     ? data.length : definition.dataSource.rowsPerPage
   const totalNoRows = data.length
-
-  const componentRows = data.map((row) => {
-    const rowKeys = Object.keys(row)
-    return rowKeys.map((cellKey) => {
-      const cellValue = row[cellKey]
-      let componentInvocation
-
-      const index = definition.columns.findIndex(column => column.dataName === cellKey);
-      switch (definition.columns[index].type) {
-        case 'image':
-          componentInvocation = { component: TabImageCell, value: `${ cellValue }` }
-          break
-        case 'pill':
-          componentInvocation = { component: TabPillCell, value: `${ cellValue }`, 
-            decorators: definition.columns[index].decorators }
-          break
-        case 'text':
-          componentInvocation = { component: TabTextCell, value: `${ cellValue }` }
-          break
-        default: 
-          throw `Unknown cell type encountered (type: ${ definition.columns[index].type })`
-      }
-      return componentInvocation
-    })
-
-  })
 
 </script>
 
@@ -72,7 +92,10 @@
     </table>
 
     <!-- Pagination Controls -->
-    <TabPageCtls rowsPerPage={ rowsPerPage } totalNoRows={ totalNoRows }/>
+    <TabPageCtls rowsPerPage={ rowsPerPage } 
+      totalNoRows={ totalNoRows }
+      scrollBackward={ scrollBackward } 
+      scrollForward={ scrollForward } />
 
   </div>
 </div>

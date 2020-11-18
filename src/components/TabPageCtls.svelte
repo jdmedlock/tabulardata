@@ -1,10 +1,14 @@
 <script>
+  import { scrollAmount } from '../stores/pagination.js';
+
   export let rowsPerPage
   export let totalNoRows
+  export let scrollBackward
+  export let scrollForward
 
   const firstRowDisplayed = 1
   const firstRow = firstRowDisplayed
-  const lastRowDisplayed = firstRowDisplayed + rowsPerPage
+  const lastRowDisplayed = firstRowDisplayed + rowsPerPage - 1
 </script>
 
 <div class="pagination-controls">
@@ -12,14 +16,12 @@
     Showing {firstRow} to {lastRowDisplayed} of {totalNoRows} rows
   </span>
   <div class="button-wrapper">
-    <button class="prev-button">Prev</button>
-    <button class="next-button">Next</button>
+    <button on:click={ scrollForward } class="prev-button">Prev</button>
+    <button on:click={ scrollBackward } class="next-button">Next</button>
   </div>
 </div>
 
-<style type="text/postcss">
-  /* TODO: Resolve pseudo-classes prefix problem: https://stackoverflow.com/questions/61407335/tailwinds-directive-apply-not-working-on-nuxt */
-  
+<style type="text/postcss">  
   .pagination-controls {
     @apply px-5 py-5 bg-white border-t flex flex-col items-center;
   }

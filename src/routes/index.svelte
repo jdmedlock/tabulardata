@@ -1,16 +1,18 @@
 <script>
+	import { scrollAmount } from '../stores/pagination.js';
 	import Tabular from '../components/Tabular.svelte'
 	import { PersonData } from '../assets/testdata.js'
 	
 	// Called by the Tabular component to retrieve a specific ste to
 	const getPersonData = ((startingRow, noRowsToGet) => {
-		return noRowsToGet > 0 ? PersonData.slice(startingRow, noRowsToGet) : PersonData.slice(startingRow)
+		console.log(`startingRow: ${ startingRow } noRowsToGet: ${ noRowsToGet }`)
+		return noRowsToGet > 0 ? PersonData.slice(startingRow, startingRow+noRowsToGet) : PersonData.slice(startingRow)
 	})
 
 	const personRpt = {
 		dataSource: {
 			reader: getPersonData,
-			rowsPerPage: -1, // Display all rows
+			rowsPerPage: 4, // Display all rows
 		},
 		columns: [
 			{ type: 'image', heading: 'Avatar', dataName: 'avatarImg' },
@@ -25,6 +27,8 @@
 			}
 		]
 	}
+
+	scrollAmount.reset(0)
 </script>
 
 <svelte:head>
