@@ -7,7 +7,7 @@ function createFirsRowToDisplay() {
 		subscribe,
 		forward: (rowsPerPage) => update(n => n + rowsPerPage),
 		backward: (rowsPerPage) => update(n => n - rowsPerPage),
-		reset: (rowNo) => set(rowNo)
+		reset: (rowNo) => set(rowNo),
 	};
 }
 

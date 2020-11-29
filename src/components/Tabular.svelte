@@ -97,8 +97,11 @@
     </table>
 
     <!-- Pagination Controls -->
-    <TabPageCtls rowsPerPage={ rowsPerPage } totalNoRows={ definition.dataSource.totalRows }
-      scrollBackward={ scrollBackward } scrollForward={ scrollForward } />
+    <TabPageCtls firstRowToDisplay={ $firstRowToDisplay }
+      rowsPerPage={ rowsPerPage } 
+      totalNoRows={ definition.dataSource.totalRows }
+      scrollBackward={ scrollBackward } 
+      scrollForward={ scrollForward } />
 
   </div>
 </div>

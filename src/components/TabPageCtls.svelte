@@ -1,17 +1,18 @@
 <script>
+  export let firstRowToDisplay
   export let rowsPerPage
   export let totalNoRows
   export let scrollBackward
   export let scrollForward
 
-  const firstRowDisplayed = 1
-  const firstRow = firstRowDisplayed
-  const lastRowDisplayed = firstRowDisplayed + rowsPerPage - 1
+  $: lastRowOnPage = (firstRowToDisplay + rowsPerPage) > totalNoRows
+        ? firstRowToDisplay + rowsPerPage - 1 : firstRowToDisplay + rowsPerPage
+
 </script>
 
 <div class="pagination-controls">
   <span class="pagination-status-text">
-    Showing {firstRow} to {lastRowDisplayed} of {totalNoRows} rows
+    Showing { firstRowToDisplay+1 } to { lastRowOnPage } of { totalNoRows } rows
   </span>
   <div class="button-wrapper">
     <button on:click={ scrollBackward } class="prev-button">Prev</button>
@@ -56,11 +57,14 @@
   }
 
   /* Hover States */
-  .prev-button:hover {
-    @apply bg-gray-400;
-  }
-
+  .prev-button:hover,
   .next-button:hover {
     @apply bg-gray-400;
   }
+
+  .prev-button:focus,
+  .next-button:focus {
+    @apply outline-none;
+  }
+
 </style>
